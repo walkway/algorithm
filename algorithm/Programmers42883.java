@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 /**
  * https://programmers.co.kr/learn/courses/30/lessons/42883
  *
@@ -5,25 +7,23 @@
  */
 class Programmers42883 {
     public static void main(String args[]) {
-        System.out.println(solution("1231234", 3));
+        System.out.println(solution("7654321", 3));
     }
 
     public static String solution(String number, int k) {
-        StringBuilder stringBuilder = new StringBuilder();
-        int resultLength = number.length() - k;
-        int index = 0;
-        for(int i = 0; i < resultLength; i++) {
-            char max = 0;
-            for(int j = index; j <= k + i; j++) {
-                if (max < number.charAt(j)) {
-                    max = number.charAt(j);
-                    index = j + 1;
-                }
+        Stack<Character> stack = new Stack<>();
+        for(int i = 0; i < number.length(); i++) {
+            while (k > 0 && !stack.isEmpty() && number.charAt(i) > stack.peek()) {
+                stack.pop();
+                k--;
             }
-
-            stringBuilder.append(max);
+            stack.add(number.charAt(i));
         }
 
-        return stringBuilder.toString();
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i  < stack.size() - k; i++) {
+            result.append(stack.get(i));
+        }
+        return result.toString();
     }
 }
