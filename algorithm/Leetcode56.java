@@ -9,8 +9,11 @@ import java.util.List;
  * Merge Intervals
  */
 class Leetcode56 {
+    public static void main(String[] args) {
+        merge(new int[][]{{1, 3}, {2, 6}, {8, 10}, {15, 18}});
+    }
 
-    public int[][] merge(int[][] intervals) {
+    public static int[][] merge(int[][] intervals) {
         if (intervals.length == 1) {
             return intervals;
         }
