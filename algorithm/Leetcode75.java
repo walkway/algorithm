@@ -4,20 +4,20 @@
  */
 class Leetcode75 {
     public void sortColors(int[] nums) {
-        int count1 = 0;
-        int count2 = 0;
+        int red = 0;
+        int white = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] == 0) {
-                count1++;
+                red++;
             } else if (nums[i] == 1) {
-                count2++;
+                white++;
             }
         }
 
         for (int i = 0; i < nums.length; i++) {
-            if (i < count1) {
+            if (i < red) {
                 nums[i] = 0;
-            } else if (i < count1 + count2) {
+            } else if (i < red + white) {
                 nums[i] = 1;
             } else {
                 nums[i] = 2;
