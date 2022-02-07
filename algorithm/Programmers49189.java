@@ -13,7 +13,7 @@ class Programmers49189 {
 
     public static int solution(int n, int[][] edge) {
         boolean[][] graph = new boolean[n + 1][n + 1];
-        int[] distance = new int[n + 1];
+        int[] distances = new int[n + 1];
 
         for (int i = 0; i < edge.length; i++) {
             graph[edge[i][0]][edge[i][1]] = true;
@@ -27,24 +27,24 @@ class Programmers49189 {
         while (!queue.isEmpty()) {
             node = queue.poll();
             for (int i = 2; i <= n; i++) {
-                if (distance[i] == 0 && graph[node][i]) {
+                if (distances[i] == 0 && graph[node][i]) {
                     queue.offer(i);
-                    distance[i] = distance[node] + 1;
+                    distances[i] = distances[node] + 1;
                 }
             }
         }
 
         int max = 0;
-        for (int i = 0; i < distance.length; i++) {
-            if (distance[i] > max)
-                max = distance[i];
+        int count = 0;
+        for (int distance : distances) {
+            if (distance > max) {
+                max = distance;
+                count = 1;
+            } else if (distance == max) {
+                count++;
+            }
         }
 
-        int count = 0;
-        for (int i : distance) {
-            if (max == i)
-                count++;
-        }
         return count;
     }
 }
