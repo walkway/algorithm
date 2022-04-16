@@ -18,12 +18,8 @@ class Leetcode347 {
         List<Map.Entry<Integer, Integer>> entries = new LinkedList<>(frequent.entrySet());
         entries.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
         int[] result = new int[k];
-        int index = 0;
-        for (Map.Entry<Integer, Integer> entry : entries) {
-            if (index < k) {
-                result[index] = entry.getKey();
-                index++;
-            }
+        for (int i = 0; i < k; i++) {
+            result[i] = entries.get(i).getKey();
         }
 
         return result;
