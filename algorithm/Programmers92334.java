@@ -7,27 +7,28 @@ import java.util.*;
 class Programmers92334 {
 
     public int[] solution(String[] id_list, String[] report, int k) {
-        Map<String, Integer> userByIndex = new HashMap<>();
-        Map<String, Set<String>> userByReport = new HashMap<>();
+        Map<String, Integer> indexByUser = new HashMap<>();
+        Map<String, Set<String>> reportByUser = new HashMap<>();
         for (int i = 0; i < id_list.length; i++) {
             String id = id_list[i];
-            userByIndex.put(id, i);
-            userByReport.put(id, new HashSet<>());
+            indexByUser.put(id, i);
+            reportByUser.put(id, new HashSet<>());
         }
 
         for (String info : report) {
             String[] ids = info.split(" ");
             String from = ids[0];
             String to = ids[1];
-            userByReport.get(to).add(from);
+            Set<String> reportedUsers = reportByUser.get(to);
+            reportedUsers.add(from);
         }
 
         int[] result = new int[id_list.length];
         for (String id : id_list) {
-            Set<String> receiverIds = userByReport.get(id);
+            Set<String> receiverIds = reportByUser.get(id);
             if (receiverIds.size() >= k) {
                 for (String receiverId : receiverIds) {
-                    result[userByIndex.get(receiverId)]++;
+                    result[indexByUser.get(receiverId)]++;
                 }
             }
         }
