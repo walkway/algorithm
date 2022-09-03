@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -5,22 +6,31 @@ import java.util.List;
  * Word Break
  */
 class Leetcode139 {
+    public static void main(String[] args) {
+        System.out.println(wordBreak("leetcode", Arrays.asList("leet", "code")));
+    }
 
-    public boolean wordBreak(String s, List<String> wordDict) {
-        boolean dp[] = new boolean[s.length() + 1];
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        boolean[] dp = new boolean[s.length() + 1];
         dp[0] = true;
-        for (int i = 0; i <= s.length(); i++) {
-            int j = i - 1;
-            while (j >= 0) {
-                if (dp[j] && wordDict.contains(s.substring(j, i))) {
-                    dp[i] = true;
-                    break;
+        for (int i = 0; i < s.length(); i++) {
+            if (!dp[i]) {
+                continue;
+            }
+
+            for (String word : wordDict) {
+                int length = word.length();
+                int endIndex = i + length;
+                if (endIndex > s.length() || dp[endIndex]) {
+                    continue;
                 }
-                j--;
+
+                if (s.substring(i, endIndex).equals(word)) {
+                    dp[endIndex] = true;
+                }
             }
         }
 
         return dp[s.length()];
     }
-
 }
